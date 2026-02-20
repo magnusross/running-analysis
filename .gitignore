@@ -13,3 +13,4 @@ wheels/
 *.parquet
 *.png
 *.pdf
+results

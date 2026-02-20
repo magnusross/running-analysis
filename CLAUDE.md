@@ -4,14 +4,34 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Exploratory data analysis on a dataset of ~9.5 million scraped Parkrun results from 2025, stored in `Parkrun_2025.parquet` (~238MB). Analysis is done in Jupyter notebooks using pandas, with DuckDB also available for SQL-based queries on the parquet data.
+Exploratory data analysis on a dataset of ~9.5 million scraped Parkrun results from 2025, stored in `Parkrun_2025.parquet` (~238MB).
+
+## Structure
+
+```
+parkrun/               # shared library, installed via uv sync
+    data.py            # load_data() — loads parquet, parses times, filters implausible records
+    utils.py           # parse_time_minutes(), format_time()
+
+analyses/
+    speed_factors/     # course difficulty ratings from percentile finish times
+        compute.py     # compute_stats(), add_speed_factors(), compute_combined()
+        plots.py       # plot_factors(), plot_mf_sanity()
+        run.py         # main() entry point; config lives at the top of this file
+
+results/
+    speed-factors/     # output CSVs and PNGs
+```
+
+`parkrun` is installed as an editable package (`uv sync`) so `import parkrun` works in scripts and notebooks. Each analysis is a self-contained subdirectory under `analyses/`.
 
 ## Environment Setup
 
 - Python 3.12, managed with `uv`
-- Install dependencies: `uv sync`
-- Activate venv: `source .venv/bin/activate`
-- Run notebook: `jupyter notebook` or use IPython directly
+- `uv sync` — installs dependencies and the `parkrun` package
+- `source .venv/bin/activate`
+- Run an analysis: `python analyses/speed_factors/run.py`
+- Run a notebook: `jupyter notebook`
 
 ## Dependencies
 
