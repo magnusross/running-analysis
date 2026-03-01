@@ -25,7 +25,7 @@ from compute import add_speed_factors, compute_combined, compute_stats
 from plots import plot_factors, plot_mf_sanity
 
 # ── Configuration ──────────────────────────────────────────────────────────────
-METHOD = "percentile"  # "percentile" or "fastest"
+METHOD = "fastest"  # "percentile" or "fastest"
 PERCENTILE = 0.01  # only used when METHOD = "percentile" (e.g. 0.05 for 5th)
 MIN_N = 100  # minimum finishers per course/gender to include
 OUT_DIR = "results/speed-factors"
